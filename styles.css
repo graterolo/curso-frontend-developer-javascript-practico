@@ -13,7 +13,8 @@
     font-family: 'Quicksand', sans-serif;
   }
   .inactive {
-    display: none;
+    /*display: none;*/
+    opacity: 0;
   }
   nav {
     display: flex;
@@ -81,14 +82,17 @@
 
   .desktop-menu {
     position: absolute;
-    top: 60;
-    right: 60;
+    top: 60px;
+    right: 60px;
     background-color: var(--white);
     width: 100px;
     height: auto;
     border: 1px solid var(--very-light-pink);
-    border-radius: 6px;
+    
+    border-radius: 0 0 6px 6px;
     padding: 20px 20px 0 20px;
+    transition: .4s;
+    box-shadow: 5px 5px 10px var(--very-light-pink);
   }
   .desktop-menu ul {
     list-style: none;
