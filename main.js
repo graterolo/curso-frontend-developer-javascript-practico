@@ -14,8 +14,7 @@ const productDetailContainer = document.querySelector('#productDetail');
 menuEmail.addEventListener('click', toggleDesktopMenu);
 menuHamIcon.addEventListener('click', toggleMobileMenu);
 menuCarritoIcon.addEventListener('click', toggleCarritoAside);
-productDetailCloseIcon.addEventListener('click', closeProductDetailAside);
-
+//productDetailCloseIcon.addEventListener('click', closeProductDetailAside);
 
 
 function toggleDesktopMenu(){
@@ -55,10 +54,11 @@ function toggleCarritoAside() {
    shoppingCartContainer.classList.toggle('inactive');
 }
 
-function openProductDetailAside(){
+/*function openProductDetailAside(){
     shoppingCartContainer.classList.add('inactive');
     productDetailContainer.classList.remove('inactive');
-}
+
+}*/
 
 function closeProductDetailAside() {
     productDetailContainer.classList.add('inactive');
@@ -66,20 +66,109 @@ function closeProductDetailAside() {
 
 const productList = [];
 productList.push({
+    id: 1,
     name: 'Bike',
     price: 120,
-    image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+    image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+    description: 'This is the best Bike in the world'
 });
 productList.push({
-    name: 'Pantalla',
+    id: 2,
+    name: 'Monitor',
     price: 220,
-    image: 'https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=600'
+    image: 'https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=600',
+    description: 'This is the best Monitor in the world'
 });
 productList.push({
-    name: 'Computadora',
+    id: 3,
+    name: 'Computer',
     price: 620,
-    image: 'https://images.pexels.com/photos/2225616/pexels-photo-2225616.jpeg?auto=compress&cs=tinysrgb&w=600'
+    image: 'https://images.pexels.com/photos/2225616/pexels-photo-2225616.jpeg?auto=compress&cs=tinysrgb&w=600',
+    description: 'This is the best Computer in the world'
+}); 
+productList.push({
+    id: 4,
+    name: 'Soun',
+    price: 620,
+    image: 'https://images.pexels.com/photos/191877/pexels-photo-191877.jpeg?auto=compress&cs=tinysrgb&w=600',
+    description: 'This is the best Soun in the world'
 });
+productList.push({
+    id: 5,
+    name: 'Glasses',
+    price: 620,
+    image: 'https://images.pexels.com/photos/13211184/pexels-photo-13211184.jpeg?auto=compress&cs=tinysrgb&w=600',
+    description: 'This is the best Glasses in the world'
+});
+productList.push({
+    id: 6,
+    name: 'Shoes',
+    price: 620,
+    image: 'https://images.pexels.com/photos/8188904/pexels-photo-8188904.jpeg?auto=compress&cs=tinysrgb&w=600',
+    description: 'This is the best Shoes in the world'
+});
+productList.push({
+    id: 7,
+    name: 'Glasses',
+    price: 620,
+    image: 'https://images.pexels.com/photos/13211184/pexels-photo-13211184.jpeg?auto=compress&cs=tinysrgb&w=600',
+    description: 'This is the best Glasses in the world'
+});
+productList.push({
+    id: 8,
+    name: 'Monitor',
+    price: 220,
+    image: 'https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=600',
+    description: 'This is the best Monitor in the world'
+});
+productList.push({
+    id: 9,
+    name: 'Computer',
+    price: 620,
+    image: 'https://images.pexels.com/photos/2225616/pexels-photo-2225616.jpeg?auto=compress&cs=tinysrgb&w=600',
+    description: 'This is the best Computer in the world'
+}); 
+productList.push({
+    id: 10,
+    name: 'Soun',
+    price: 620,
+    image: 'https://images.pexels.com/photos/191877/pexels-photo-191877.jpeg?auto=compress&cs=tinysrgb&w=600',
+    description: 'This is the best Soun in the world'
+});
+
+
+const openProductDetailAside = (id) => {  
+  const isActiveAside = renderAsideDetail(id);
+  shoppingCartContainer.classList.add('inactive');
+  const isOpenMenuMobile = mobileMenu.classList.contains('inactive');
+  productDetail.classList.remove('inactive');
+}
+
+const renderAsideDetail = (id) => {
+  const product = productList.find(product => product.id == id);
+  const htmlAside = `
+    <div class="product-info-detail-close">
+      <img src="./icons/icon_close.png" alt="close">
+    </div>
+    <img src="${product.image}" alt="${product.name}">
+    <div class="info-datail">
+      <p>$ ${product.price}</p>
+      <p>${product.name}</p>
+      <p>${product.description}</p>
+      <button class="primary-button add-to-cart-button">
+        <img src="./icons/bt_add_to_cart.svg" alt="add to cart">
+        Add to cart
+      </button>
+    </div>
+  `;
+  productDetail.innerHTML = htmlAside;
+  productDetail.classList.remove('inactive');
+
+  const iconCloseAsideProductInfoDetail = document.querySelector('.product-info-detail-close');
+  iconCloseAsideProductInfoDetail.addEventListener('click', closeProductDetailAside)
+  return true
+}
+
 
 /* Este codigo lo pegamos para guiarnos y construir esto desde js
 <div class="product-card">
@@ -99,11 +188,13 @@ function renderProducts(arr) {
     for (product of productList){
         const productCard = document.createElement('div');
         productCard.classList.add('product-card');
-    
+        const id = product.id;
+
         // product = {name, price, image}
         const productImg = document.createElement('img');
         productImg.setAttribute('src', product.image);
-        productImg.addEventListener('click', openProductDetailAside);
+       // productImg.addEventListener('click', openProductDetailAside);
+       productImg.addEventListener('click', () => openProductDetailAside(id))
     
         const productInfo = document.createElement('div');
         productInfo.classList.add('product-info');
